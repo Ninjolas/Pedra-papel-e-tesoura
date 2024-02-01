@@ -1,0 +1,272 @@
+<html>
+
+<body>
+
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        .player-options img,
+        .enemy-options img {
+            max-width: 200px;
+            opacity: 0.3;
+            cursor: pointer;
+        }
+
+        .player-options,
+        .enemy-options {
+            width: 50%;
+
+        }
+
+        .ranking {
+            width: 25%;
+            font-size: 15px;
+        }
+
+        .align {
+            display: flex;
+        }
+
+        .bestof {
+            border-radius: 20px;
+            background-color: black;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        input[type=submit] {
+            background-color: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        input[type=text] {
+            border-radius: 20px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .rock {
+            background-color: rgba(251, 43, 243, 0.4);
+            width: 80%;
+            border-radius: 50px;
+            margin: 20px 0;
+        }
+
+        .paper {
+            background-color: rgba(4, 220, 187, 0.4);
+            width: 70%;
+            border-radius: 50px;
+            margin: 20px 0;
+        }
+
+        .scisor {
+            background-color: rgba(12, 123, 235, 0.4);
+            width: 80%;
+            border-radius: 50px;
+            margin: 20px 0;
+        }
+    </style>
+
+    <h1 style="text-align: center;">Pedra,Papel ou Tesoura</h1>
+    <div class="bestof">
+        <input type="text" name="result" placeholder="Melhor de...">
+        <input type="submit" value="Enviar">
+    </div>
+    <h2 style="text-align: center;" class="vencedor"></h2>
+    <h2 style="text-align: center;" class="score">Você: 0 PC: 0</h2>
+    <h2 style="text-align: center;" class="champion"></h2>
+    <hr>
+    <div class="align">
+        <div class="player-options">
+            <div class="rock"><img opt="pedra" src="rock.png"></div>
+            <div class="paper"><img opt="papel" src="paper.png"></div>
+            <div class="scisor"><img opt="tesoura" src="scisor.png"></div>
+        </div>
+
+        <div class="enemy-options">
+            <div class="rock"><img opt="pedra" src="rock.png"></div>
+            <div class="paper"><img opt="papel" src="paper.png"></div>
+            <div class="scisor"><img opt="tesoura" src="scisor.png"></div>
+        </div>
+        <div class="ranking">
+            <h1 class="vc">Você : 0</h1>
+            <h1 class="pc">PC : 0</h1>
+            <input type="submit" value="Resetar">
+        </div>
+    </div>
+
+
+    <script>
+
+        var truncPC = 0;
+        var truncVC = 0;
+
+        function funcionarJogo(){
+                var elementos = document.querySelectorAll('.player-options div > img');
+                var enemyOptions = document.querySelectorAll('.enemy-options div > img');
+                var bestof = document.querySelector('input[name=result]').value;
+                var playerwin = 0;
+                var enemywin = 0;
+                var playeropt = "";
+                var inimigoopt = "";
+                var champion = document.querySelector('.champion');
+                var rankingVC = document.querySelector('.vc');
+                var rankingPC = document.querySelector('.pc');
+
+                function validarVitoria() {
+
+                    let vencedor = document.querySelector('.vencedor');
+
+                    let score = document.querySelector('.score');
+
+                    if (playeropt == "papel") {
+                        if (inimigoopt == "papel") {
+                            vencedor.innerHTML = "O jogo foi empate";
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                        else if (inimigoopt == "pedra") {
+                            vencedor.innerHTML = "Você ganhou";
+                            playerwin += 1
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                        else if (inimigoopt == "tesoura") {
+                            vencedor.innerHTML = "Inimigo ganhou";
+                            enemywin += 1
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                    }
+
+                    if (playeropt == "tesoura") {
+                        if (inimigoopt == "papel") {
+                            vencedor.innerHTML = "Você ganhou";
+                            playerwin += 1
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                        else if (inimigoopt == "pedra") {
+                            vencedor.innerHTML = "Inimigo ganhou";
+                            enemywin += 1
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                        else if (inimigoopt == "tesoura") {
+                            vencedor.innerHTML = "O jogo foi empate";
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                    }
+
+                    if (playeropt == "pedra") {
+                        if (inimigoopt == "papel") {
+                            vencedor.innerHTML = "Inimigo ganhou";
+                            enemywin += 1
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                        else if (inimigoopt == "pedra") {
+                            vencedor.innerHTML = "O jogo foi empate";
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                        else if (inimigoopt == "tesoura") {
+                            vencedor.innerHTML = "Você ganhou";
+                            playerwin += 1
+                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                        }
+                    }
+
+                }
+
+                function resetInimigo() {
+                    for (var i = 0; i < enemyOptions.length; i++) {
+                        enemyOptions[i].style.opacity = 0.5;
+                    }
+                }
+
+                function inimigoJogar() {
+                    let rand = Math.floor(Math.random() * 3);
+                    resetInimigo();
+
+                    for (var i = 0; i < enemyOptions.length; i++) {
+                        if (i == rand) {
+                            enemyOptions[i].style.opacity = 1;
+                            inimigoopt = enemyOptions[i].getAttribute('opt');
+                        }
+                    }
+
+                    validarVitoria()
+
+                }
+
+
+                function resetOpacityPlayer() {
+                    for (var i = 0; i < elementos.length; i++) {
+                        elementos[i].style.opacity = 0.3;
+                    }
+                }
+
+
+
+                for (var i = 0; i < elementos.length; i++) {
+                    elementos[i].addEventListener('click', (t) => {
+                        champion.innerHTML = "";
+                        resetOpacityPlayer()
+                        t.target.style.opacity = 1;
+                        playeropt = t.target.getAttribute('opt');
+
+                        inimigoJogar();
+                        if(bestof % 2 == 0 || bestof == 0){
+                            verificar();
+                        }
+                        else{
+                            if (playerwin == Math.round(bestof / 2) || enemywin == Math.round(bestof / 2)) {
+                                if (playerwin > enemywin) {
+                                    champion.innerHTML = "Parabéns você ganhou";
+                                    truncVC += 1;
+                                    rankingVC.innerHTML = "Você : " + truncVC;
+                                }
+                                else {
+                                    champion.innerHTML = "PC ganhou";
+                                    truncPC += 1;
+                                    rankingPC.innerHTML = "PC : " + truncPC;
+                                }
+                                playerwin = 0;
+                                enemywin = 0;
+                        }
+
+                        }
+
+                    });
+                }
+
+                document.querySelector('input[value=Resetar]')
+                    .addEventListener('click', () => {
+                        rankingVC.innerHTML = "Você : 0";
+                        rankingPC.innerHTML = "PC : 0";
+                    })
+            }
+
+            function verificar(){
+                if(bestof % 2 == 0 || bestof == 0){
+                    alert("Inválido");
+                }
+                else{
+                    funcionarJogo();
+                }
+            }
+
+
+            document.querySelector('input[type=submit]')
+            .addEventListener('click', ()=>{
+                verificar();
+            });
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
