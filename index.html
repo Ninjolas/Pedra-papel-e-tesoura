@@ -72,8 +72,8 @@
     </style>
 
     <h1 style="text-align: center;">Pedra,Papel ou Tesoura</h1>
-    <div class="bestof">
-        <input type="text" name="result" placeholder="Melhor de...">
+    <div class="bestof" >
+        <input type="text" value="3" name="result" placeholder="Melhor de...">
         <input type="submit" value="Enviar">
     </div>
     <h2 style="text-align: center;" class="vencedor"></h2>
@@ -102,162 +102,166 @@
 
     <script>
 
-        var truncPC = 0;
-        var truncVC = 0;
 
-        function funcionarJogo(){
-                var elementos = document.querySelectorAll('.player-options div > img');
-                var enemyOptions = document.querySelectorAll('.enemy-options div > img');
-                var bestof = document.querySelector('input[name=result]').value;
-                var playerwin = 0;
-                var enemywin = 0;
-                var playeropt = "";
-                var inimigoopt = "";
-                var champion = document.querySelector('.champion');
-                var rankingVC = document.querySelector('.vc');
-                var rankingPC = document.querySelector('.pc');
+        function funcionarJogo() {
+            var elementos = document.querySelectorAll('.player-options div > img');
+            var enemyOptions = document.querySelectorAll('.enemy-options div > img');
+            var bestof = document.querySelector('input[name=result]').value;
+            var playerwin = 0;
+            var enemywin = 0;
+            var playeropt = "";
+            var inimigoopt = "";
+            var champion = document.querySelector('.champion');
+            var rankingVC = document.querySelector('.vc');
+            var rankingPC = document.querySelector('.pc');
 
-                function validarVitoria() {
+            var truncPC = 0;
+            var truncVC = 0;
 
-                    let vencedor = document.querySelector('.vencedor');
+            function validarVitoria() {
 
-                    let score = document.querySelector('.score');
+                let vencedor = document.querySelector('.vencedor');
 
-                    if (playeropt == "papel") {
-                        if (inimigoopt == "papel") {
-                            vencedor.innerHTML = "O jogo foi empate";
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
-                        else if (inimigoopt == "pedra") {
-                            vencedor.innerHTML = "Você ganhou";
-                            playerwin += 1
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
-                        else if (inimigoopt == "tesoura") {
-                            vencedor.innerHTML = "Inimigo ganhou";
-                            enemywin += 1
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
+                let score = document.querySelector('.score');
+
+                if (playeropt == "papel") {
+                    if (inimigoopt == "papel") {
+                        vencedor.innerHTML = "O jogo foi empate";
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
                     }
-
-                    if (playeropt == "tesoura") {
-                        if (inimigoopt == "papel") {
-                            vencedor.innerHTML = "Você ganhou";
-                            playerwin += 1
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
-                        else if (inimigoopt == "pedra") {
-                            vencedor.innerHTML = "Inimigo ganhou";
-                            enemywin += 1
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
-                        else if (inimigoopt == "tesoura") {
-                            vencedor.innerHTML = "O jogo foi empate";
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
+                    else if (inimigoopt == "pedra") {
+                        vencedor.innerHTML = "Você ganhou";
+                        playerwin += 1
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
                     }
-
-                    if (playeropt == "pedra") {
-                        if (inimigoopt == "papel") {
-                            vencedor.innerHTML = "Inimigo ganhou";
-                            enemywin += 1
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
-                        else if (inimigoopt == "pedra") {
-                            vencedor.innerHTML = "O jogo foi empate";
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
-                        else if (inimigoopt == "tesoura") {
-                            vencedor.innerHTML = "Você ganhou";
-                            playerwin += 1
-                            score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
-                        }
-                    }
-
-                }
-
-                function resetInimigo() {
-                    for (var i = 0; i < enemyOptions.length; i++) {
-                        enemyOptions[i].style.opacity = 0.5;
+                    else if (inimigoopt == "tesoura") {
+                        vencedor.innerHTML = "Inimigo ganhou";
+                        enemywin += 1
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
                     }
                 }
 
-                function inimigoJogar() {
-                    let rand = Math.floor(Math.random() * 3);
-                    resetInimigo();
-
-                    for (var i = 0; i < enemyOptions.length; i++) {
-                        if (i == rand) {
-                            enemyOptions[i].style.opacity = 1;
-                            inimigoopt = enemyOptions[i].getAttribute('opt');
-                        }
+                if (playeropt == "tesoura") {
+                    if (inimigoopt == "papel") {
+                        vencedor.innerHTML = "Você ganhou";
+                        playerwin += 1
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
                     }
-
-                    validarVitoria()
-
-                }
-
-
-                function resetOpacityPlayer() {
-                    for (var i = 0; i < elementos.length; i++) {
-                        elementos[i].style.opacity = 0.3;
+                    else if (inimigoopt == "pedra") {
+                        vencedor.innerHTML = "Inimigo ganhou";
+                        enemywin += 1
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                    }
+                    else if (inimigoopt == "tesoura") {
+                        vencedor.innerHTML = "O jogo foi empate";
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
                     }
                 }
 
-
-
-                for (var i = 0; i < elementos.length; i++) {
-                    elementos[i].addEventListener('click', (t) => {
-                        champion.innerHTML = "";
-                        resetOpacityPlayer()
-                        t.target.style.opacity = 1;
-                        playeropt = t.target.getAttribute('opt');
-
-                        inimigoJogar();
-                        if(bestof % 2 == 0 || bestof == 0){
-                            verificar();
-                        }
-                        else{
-                            if (playerwin == Math.round(bestof / 2) || enemywin == Math.round(bestof / 2)) {
-                                if (playerwin > enemywin) {
-                                    champion.innerHTML = "Parabéns você ganhou";
-                                    truncVC += 1;
-                                    rankingVC.innerHTML = "Você : " + truncVC;
-                                }
-                                else {
-                                    champion.innerHTML = "PC ganhou";
-                                    truncPC += 1;
-                                    rankingPC.innerHTML = "PC : " + truncPC;
-                                }
-                                playerwin = 0;
-                                enemywin = 0;
-                        }
-
-                        }
-
-                    });
+                if (playeropt == "pedra") {
+                    if (inimigoopt == "papel") {
+                        vencedor.innerHTML = "Inimigo ganhou";
+                        enemywin += 1
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                    }
+                    else if (inimigoopt == "pedra") {
+                        vencedor.innerHTML = "O jogo foi empate";
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                    }
+                    else if (inimigoopt == "tesoura") {
+                        vencedor.innerHTML = "Você ganhou";
+                        playerwin += 1
+                        score.innerHTML = "Você: " + playerwin + " PC: " + enemywin;
+                    }
                 }
 
-                document.querySelector('input[value=Resetar]')
-                    .addEventListener('click', () => {
-                        rankingVC.innerHTML = "Você : 0";
-                        rankingPC.innerHTML = "PC : 0";
-                    })
-            }
-
-            function verificar(){
-                if(bestof % 2 == 0 || bestof == 0){
+                if (bestof % 2 == 0 || bestof <= 1) {
                     alert("Inválido");
+                    vencedor.innerHTML = "";
+                    score.innerHTML = "Você: 0  PC: 0";
                 }
                 else{
-                    funcionarJogo();
+                    if (playerwin == Math.round(bestof / 2) || enemywin == Math.round(bestof / 2)) {
+                        if (playerwin > enemywin) {
+                            champion.innerHTML = "Parabéns você ganhou";
+                            truncVC += 1;
+                            rankingVC.innerHTML = "Você : " + truncVC;
+                        }
+                        else {
+                            champion.innerHTML = "PC ganhou";
+                            truncPC += 1;
+                            rankingPC.innerHTML = "PC : " + truncPC;
+                        }
+                        playerwin = 0;
+                        enemywin = 0;
+                    }
+
+                }
+
+            }
+
+            function resetInimigo() {
+                for (var i = 0; i < enemyOptions.length; i++) {
+                    enemyOptions[i].style.opacity = 0.5;
+                }
+            }
+
+            function inimigoJogar() {
+                let rand = Math.floor(Math.random() * 3);
+                resetInimigo();
+
+                for (var i = 0; i < enemyOptions.length; i++) {
+                    if (i == rand) {
+                        enemyOptions[i].style.opacity = 1;
+                        inimigoopt = enemyOptions[i].getAttribute('opt');
+                    }
+                }
+
+                validarVitoria()
+
+            }
+
+
+            function resetOpacityPlayer() {
+                for (var i = 0; i < elementos.length; i++) {
+                    elementos[i].style.opacity = 0.3;
                 }
             }
 
 
-            document.querySelector('input[type=submit]')
-            .addEventListener('click', ()=>{
-                verificar();
+
+            for (var i = 0; i < elementos.length; i++) {
+                elementos[i].addEventListener('click', (t) => {
+                    champion.innerHTML = "";
+                    resetOpacityPlayer()
+                    t.target.style.opacity = 1;
+                    playeropt = t.target.getAttribute('opt');
+
+                    inimigoJogar();
+
+                });
+            }
+
+            document.querySelector('input[value=Resetar]')
+                .addEventListener('click', () => {
+                    rankingVC.innerHTML = "Você : 0";
+                    rankingPC.innerHTML = "PC : 0";
+                })
+        }
+
+        function verificar() {
+            if (bestof % 2 == 0 || bestof == 0) {
+                alert("Inválido");
+            }
+            else {
+                funcionarJogo();
+            }
+        }
+
+
+        document.querySelector('input[type=submit]')
+            .addEventListener('click', () => {
+                funcionarJogo();
             });
 
 
